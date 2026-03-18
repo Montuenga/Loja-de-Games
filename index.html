@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>BYTE SIX OFICIAL</title>
+    <style>        
+    
+    /* Estilo geral da página*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+}
+
+        header {
+            background-color: #08142E;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+        .produto {
+            background-color: #ff0000;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+
+            display: flex;       
+             align-items: center; 
+            gap: 20px;          
+        }
+        .produto h2 {
+            margin-top: 0;
+        }
+        .produto input {
+            width: 60px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .resumo {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #5e17eb;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #4811b5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color:  #1a1a1a;
+            margin-top: 30px;
+        }
+        
+          #notificacao {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background:#5e17eb;
+            color:black;
+            padding:15px;
+            border-radius:8px;
+            display:none;
+            font-weight:bold;
+            box-shadow:0 0 10px #000;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    
+<!-- Logo da loja -->
+    <header>
+        <img src="imagem/logo3.jpg" width="1100" height="520" alt="Foto">
+        
+    </header>
+
+ <!-- JOGO 1- MINECRAFT -->
+     <div class="container" style="padding:20px;">
+
+    <div class="produto" style="background:#1e3d1e; padding:15px; margin-bottom:15px; border-radius:10px; display:flex; gap:20px; color:white;">
+        <img src="imagem/mine2.jpg" width="195">
+        <div class="info">
+            <h2 style="color:#4CAF50;">MINECRAFT 2</h2>
+            <p>Preço: R$99,90</p>
+            <button onclick="adicionaraocarrinho('minecraft')">
+            Adicionar Minecraft ao carrinho</button>
+        </div>
+    </div>
+
+<!-- JOGO 2- FIFA 27 -->
+    <div class="produto" style="background:#001f3f; padding:15px; margin-bottom:15px; border-radius:10px; display:flex; gap:20px; color:white;">
+        <img src="imagem/fifa27.jpg" width="195">
+        <div class="info">
+            <h2 style="color:#00aaff;">FIFA 27</h2>
+            <p>Preço: R$ 299,90</p>
+            <button onclick="adicionaraocarrinho('fifa')"
+            >Adicionar FIFA ao carrinho</button>
+        </div>
+    </div>
+
+ <!-- JOGO 3- GOD OF WAR -->
+    <div class="produto" style="background:#2b0000; padding:15px; margin-bottom:15px; border-radius:10px; display:flex; gap:20px; color:white;">
+        <img src="imagem/godofwar.jpg" width="195">
+        <div class="info">
+            <h2 style="color:#ff4d4d;">GOD OF WAR</h2>
+            <p>Preço: R$ 349,90</p>
+            <button onclick="adicionaraocarrinho('godofwar')"
+            >Adicionar God of War ao carrinho</button>
+        </div>
+    </div>
+  <!-- JOGO 4- GTA VI -->
+    <div class="produto" style="background:#1a1a1a; padding:15px; margin-bottom:15px; border-radius:10px; display:flex; gap:20px; color:white;">
+        <img src="imagem/gtaiv.jpg" width="195">
+        <div class="info">
+            <h2 style="color:#FF6A00;">GTA VI</h2>
+            <p>Preço: R$ 799,90</p>
+            <button onclick="adicionaraocarrinho('gtaVI')"
+            >Adicionar GTA VI ao carrinho</button>
+        </div>
+    </div> 
+
+<!-- Calcula o total da compra -->
+    <button onclick="calculartotal()" style="
+    padding:10px 20px;
+    background:#5e17eb;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    ">
+    Calcular Compra
+    </button>
+
+<!-- Resumo da compra -->
+<div class="resumo" style=>
+    <h2 style="color:#5e17eb;">Resumo da Compra</h2>
+    <ul id="listaResumo" style="color:rgb(255, 255, 255);"></ul>       
+    <p style="color:#5e17eb;"id="total">Total: R$ 0,00</p>
+    <p style="color:#5e17eb;"id="desconto">Desconto: R$ 0,00</p>
+    <p style="color:#5e17eb;"id="final">Valor Final: R$ 0,00</p>
+    <input type="text" id="cupom" placeholder="Insira o cupom de desconto">
+
+    <!-- Botão finalizar compra -->
+    <button onclick="finalizarCompra()" style="background:#00d4ff; color:#000; margin-top:10px;">
+        Finalizar Compra
+    </button>
+
+    <!-- Area de pagamento -->
+    <div id="pagamentoPIX" style="display:none; margin-top:20px; background:#1a1a1a; padding:15px; border-radius:10px; text-align:center;">
+        <h3 style="color:#5e17eb;">Pagamento via PIX</h3>
+        <p style="color:#5e17eb;">Use o QR code abaixo para pagar:</p>
+
+    <!-- QR code pagamento via PIX -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX_EXEMPLO" alt="QR Code PIX">
+        <p style="color:#5e17eb; margin-top:10px;">PIX chave: 123.444.777-67</p>
+    </div>
+
+</div>
+
+    <footer>
+        <p style="color: #5e17eb;"> BYTE SIX COMPANY </p>
+    </footer>
+    <!-- Notificação de compra adicionada ao carrinho -->
+    <div id="notificacao"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
